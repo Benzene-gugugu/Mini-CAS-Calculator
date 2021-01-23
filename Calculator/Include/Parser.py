@@ -1,9 +1,9 @@
 from Lexer import *
 from typing import List, Dict, Mapping, NoReturn, Any
-from BasicAlgebra import Number, nsin, ncos, ntan, arcsin, arccos, arctan, nlog, E, PI
-from Matrix import Row, Matrix, determinant, inverse
-from Vector import Vector, dotProduct, crossProduct
-from Statistics import NumList, mean, median, lowerQ, upperQ, mode, popVar, samVar, nPr, nCr, BinP, BinC, GeoP, GeoC, PoP, PoC, NC, INC, TC, ITC, ChiC, IChiC
+from BasicAlgebra import *
+from Matrix import *
+from Vector import *
+from Statistics import *
 
 
 class Parser:

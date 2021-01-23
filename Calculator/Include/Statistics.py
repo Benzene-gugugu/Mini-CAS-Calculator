@@ -1,6 +1,5 @@
 from typing import List, Union
 from BasicAlgebra import Number, E
-from collections import Counter
 from scipy.stats import norm, t, chi2
 
 
