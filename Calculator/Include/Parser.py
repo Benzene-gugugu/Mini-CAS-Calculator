@@ -16,7 +16,7 @@ class Parser:
         self.curtoken: Token = self.tokens[self.tokenid]
         self.peektoken: Token = self.tokens[self.tokenid + 1]
 
-    # Move to next token
+    # Move to next token, if available
     def nextToken(self):
         self.tokenid += 1
         self.curtoken = self.tokens[self.tokenid]
