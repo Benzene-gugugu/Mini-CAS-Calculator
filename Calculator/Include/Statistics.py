@@ -1,5 +1,6 @@
 from typing import List
 from scipy.stats import norm, t, chi2
+from BasicAlgebra import Number
 
 
 class NumList:
