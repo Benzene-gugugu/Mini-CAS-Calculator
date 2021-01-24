@@ -53,35 +53,33 @@ class Parser:
                 if ident not in Parser.identval:
                     Parser.identval[ident] = None
                 self.match(TokenType.IDENTIFIER)
-                if self.checkToken(TokenType.ASSIGN):
-                    # print("STATEMENT-VAR-NOUNC")
+                self.match(TokenType.ASSIGN)
+                if self.checkToken(TokenType.LEFT_PAREN):
+                    # print("STATEMTENT-VAR-VECTOR")
+                    l = []
                     self.nextToken()
-                    if self.checkToken(TokenType.LEFT_PAREN):
-                        # print("STATEMTENT-VAR-VECTOR")
-                        l = []
+                    l.append(self.expression())
+                    while self.checkToken(TokenType.COMMA):
                         self.nextToken()
                         l.append(self.expression())
-                        while self.checkToken(TokenType.COMMA):
-                            self.nextToken()
-                            l.append(self.expression())
-                        self.match(TokenType.RIGHT_PAREN)
-                        Parser.identval[ident] = Vector(l)
-                    elif self.checkToken(TokenType.LEFT_BRACKET) and self.checkPeek(TokenType.LEFT_BRACKET):
-                        # print("STATEMENT-VAR-MATRIX/ROW")
-                        Parser.identval[ident] = self.matrix()
-                    elif self.checkToken(TokenType.LEFT_BRACE):
-                        # print("STATEMENT-VAR-LIST")
-                        l = []
+                    self.match(TokenType.RIGHT_PAREN)
+                    Parser.identval[ident] = Vector(l)
+                elif self.checkToken(TokenType.LEFT_BRACKET) and self.checkPeek(TokenType.LEFT_BRACKET):
+                    # print("STATEMENT-VAR-MATRIX/ROW")
+                    Parser.identval[ident] = self.matrix()
+                elif self.checkToken(TokenType.LEFT_BRACE):
+                    # print("STATEMENT-VAR-LIST")
+                    l = []
+                    self.nextToken()
+                    l.append(self.expression())
+                    while self.checkToken(TokenType.COMMA):
                         self.nextToken()
                         l.append(self.expression())
-                        while self.checkToken(TokenType.COMMA):
-                            self.nextToken()
-                            l.append(self.expression())
-                        self.match(TokenType.RIGHT_BRACE)
-                        Parser.identval[ident] = NumList(l)
-                    else:
-                        # print("STATEMENT-VAR-NUM")
-                        Parser.identval[ident] = self.expression()
+                    self.match(TokenType.RIGHT_BRACE)
+                    Parser.identval[ident] = NumList(l)
+                else:
+                    # print("STATEMENT-VAR-NUM")
+                    Parser.identval[ident] = self.expression()
             else:
                 raise SyntaxError("Expected var or print")
 
