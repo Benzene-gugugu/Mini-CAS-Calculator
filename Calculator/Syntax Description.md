@@ -2,25 +2,20 @@
 
 ```BNF
 <statement> ::= print <expression> | var <assignment>
-<assignment> ::= <identifier> = <expression> 
-                | <identifier> ( <var_list> ) = <expression> 
+<assignment> ::= <identifier> = <expression>  
                 | <identifier> = { <expression_list> } 
                 | <identifier> = ( <expression_list> ) 
-                | <identifier> = <row>
                 | <identifier> = <matrix>
 <expression_list> ::= <expression> | <expression_list> , <expression>
-<var_list> ::= <var> | <var_list> , <var>
-<var> ::= x | y | z | t
-<row> ::= [ <expression_list> ]
 <matrix> ::= [ <row_list> ]
 <row_list> ::= <row> | <row_list> , <row>
+<row> ::= [ <expression_list> ]
 <expression> ::= <term> | <term> + <expression> | <term> - <expression>
 <term> ::= <factor> | <factor> * <term> | <factor> / <term>
-<factor> ::= <unary> | <unary> ^ <exp>
+<factor> ::= <unary> | <unary> ^ <unary>
 <unary> ::= <primary> | + <primary> | - <primary>
-<exp> ::= <expprimary> | + <expprimary> | - <expprimary>
-<primary> ::= ( <expression> ) | <number> | <identifier> | <var>
-<expprimary> ::= ( <expression> ) | <number> | <identifier>
+<primary> ::= ( <expression> ) | <number> | <identifier> | <built-in> ( <expression_list> )
 <number> ::= real number
 <identifier> ::= string of length > 0
+<built-in> ::= list of built-in functions
 ```
