@@ -44,7 +44,7 @@ class NumList:
 
     def __str__(self):
         s = '{'
-        for n in self.__v:
+        for n in self.__list:
             s += str(n) + ','
         s = s[0:len(s) - 1]
         s += '}'

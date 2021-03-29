@@ -9,12 +9,14 @@ from Statistics import *
 class Parser:
     # Check for all values of the variables
     identval = dict()
+    out = print
 
-    def __init__(self, lexer: Lexer):
+    def __init__(self, lexer: Lexer, out=print):
         self.tokens: List[Tokens] = lexer.scanTokens()
         self.tokenid: int = 0
         self.curtoken: Token = self.tokens[self.tokenid]
         self.peektoken: Token = self.tokens[self.tokenid + 1]
+        Parser.out = out
 
     # Move to next token, if available
     def nextToken(self):
@@ -36,7 +38,7 @@ class Parser:
     # checks for a current token match
     def match(self, kind):
         if not self.checkToken(kind):
-            raise SyntaxError("Expected " + str(kind) + ', got ' + str(self.curtoken.tokentype))
+            raise SyntaxError("Expected " + str(kind) + ', got ' + str(self.curtoken.tokentype) + ' at location '+str(self.tokenid))
         self.nextToken()
 
     # parses a single statement
@@ -45,9 +47,9 @@ class Parser:
             if self.checkToken(TokenType.PRINT):
                 # print("STATEMENT-PRINT")
                 self.nextToken()
-                print(self.expression())
+                Parser.out(self.expression())
             elif self.checkToken(TokenType.VAR):
-                # print("STATEMENT-VAR")
+                # Parser.out("STATEMENT-VAR")
                 self.nextToken()
                 ident = self.curtoken.lexeme
                 if ident not in Parser.identval:
@@ -65,7 +67,7 @@ class Parser:
                     self.match(TokenType.RIGHT_PAREN)
                     Parser.identval[ident] = Vector(l)
                 elif self.checkToken(TokenType.LEFT_BRACKET) and self.checkPeek(TokenType.LEFT_BRACKET):
-                    # print("STATEMENT-VAR-MATRIX/ROW")
+                    # Parser.out("STATEMENT-VAR-MATRIX/ROW")
                     Parser.identval[ident] = self.matrix()
                 elif self.checkToken(TokenType.LEFT_BRACE):
                     # print("STATEMENT-VAR-LIST")
@@ -80,6 +82,7 @@ class Parser:
                 else:
                     # print("STATEMENT-VAR-NUM")
                     Parser.identval[ident] = self.expression()
+                Parser.out("Done")
             else:
                 raise SyntaxError("Expected var or print")
 
@@ -398,7 +401,7 @@ class Parser:
 
     # checking for matrices
     def matrix(self):
-        # print("MATRIX")
+        # Parser.out("MATRIX")
         l = []
         self.match(TokenType.LEFT_BRACKET)
         l.append(self.row())
@@ -410,12 +413,12 @@ class Parser:
 
     # checking for rows in a matrix
     def row(self):
-        # print("ROW")
+        # Parser.out("ROW")
         l = []
         self.match(TokenType.LEFT_BRACKET)
         l.append(self.expression())
         while self.checkToken(TokenType.COMMA):
             self.nextToken()
-            l.append(self.row())
+            l.append(self.expression())
         self.match(TokenType.RIGHT_BRACKET)
         return Row(l)

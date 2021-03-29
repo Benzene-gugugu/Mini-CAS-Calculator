@@ -4,6 +4,10 @@ from math import sin, cos, tan, asin, acos, atan, e, pi, log
 class Number:
     def __init__(self, n):
         self.__num: float = float(n)
+        if self.__num == int(self.__num):
+            self.__num = int(self.__num)
+        else:
+            self.__num = round(self.__num, 15)
 
     def getNum(self) -> float:
         return self.__num

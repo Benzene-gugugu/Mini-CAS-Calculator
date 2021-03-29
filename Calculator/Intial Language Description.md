@@ -26,7 +26,7 @@ List of numbers: `var l={5,6,2,1,2,7,6,3,6,2,4,8}`
 
 ## Expressions
 
-For all below expressions, `print` must be included before the 
+For all below expressions, `print` must be included before the code to execute and output the result
 
 ### Matrix Operations
 
@@ -84,11 +84,4 @@ INC(<mean>, <variance>, <p>) //output the value of the normal distribution with 
 ITC(<degree of freedom>, <p>) //output the value of the t distribution with cultimated probability p
 IChiC(<degree of freedom>, <p>) //output the value of the chi-squared distribution with cultimated probability p
 ```
-
-### GUI specific operations
-
-1. Form for solving 2-var-1-degree, 3-var-1-degree, 1-var-2-degree, 1-var-3-degree functions
-2. Form for fast declaration of matrixes / vectors / list of numbers
-3. Form for One-var statistics analysis
-4. Form for z-interval, t-interval, z-test, t-test, chi-squared-tests
 

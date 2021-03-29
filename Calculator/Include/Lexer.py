@@ -175,7 +175,7 @@ class Lexer:
 
     # Check the next character
     def __peekNext(self) -> str:
-        if current + 1 >= len(self.__source):
+        if self.__current + 1 >= len(self.__source):
             return '\n'
         return self.__source[self.__current + 1]
 
